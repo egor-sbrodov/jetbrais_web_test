@@ -1,0 +1,5 @@
+rootProject.name = 'jetbrais_web_test'
+
+include 'test_utils'
+include 'web_tests'
+

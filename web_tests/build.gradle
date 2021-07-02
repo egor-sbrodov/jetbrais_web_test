@@ -1,0 +1,54 @@
+apply plugin: 'org.jetbrains.kotlin.jvm'
+
+group 'com.jetbrains.com.jetbrains.webtests'
+version '0.1'
+
+repositories {
+    mavenCentral()
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "$java_version"
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "$java_version"
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+    implementation("org.kohsuke:wordnet-random-name:$random_name_version")
+
+    implementation("com.google.inject:guice:$guice_version")
+    implementation("org.seleniumhq.selenium:selenium-java:$selenuim_versionn")
+
+    implementation("org.seleniumhq.selenium:selenium-chrome-driver:$selenuim_versionn")
+    implementation "org.assertj:assertj-core:$assertj_version"
+
+    implementation("io.qameta.allure:allure-descriptions-javadoc:$allure_version")
+
+    implementation project(':test_utils').sourceSets.main.output
+
+    implementation "org.junit.jupiter:junit-jupiter-api:$junit_version"
+    implementation "org.junit.jupiter:junit-jupiter-params:$junit_version"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:$junit_version"
+}
+
+test {
+    testClassesDirs = sourceSets.test.output.classesDirs
+    useJUnitPlatform()
+
+    testLogging {
+        events 'PASSED', 'SKIPPED', 'FAILED'
+    }
+
+    systemProperties = [
+            'junit.jupiter.execution.parallel.enabled'             : 'true',
+            'junit.jupiter.execution.parallel.mode.default'        : 'concurrent',
+            'junit.jupiter.execution.parallel.mode.classes.default': 'concurrent',
+    ]
+
+    environment(Map.of("app.host", "localhost:8080"))
+}
