@@ -25,9 +25,9 @@ Generally, I didn't write tests for the bugs
 
 ### Password:
 
-* Chinese and others characters are allowed, looks not good
 * Not checked short/weak password
 * Value is not limited
+* Optional: Chinese and others characters are allowed, looks not good
 
 ### Fullname:
 
